@@ -1,4 +1,4 @@
-.container, .containerOpen {
+.container,.containerOpen {
     width: 80px;
     height: 80px;
     background-color: rgb(199, 199, 199);
@@ -9,6 +9,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.containerOpenDark, .containerDark {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonMode, .buttonModeDark{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+}
+
+.buttonModeDark {
+    background-color: rgb(14, 14, 14);
 }
 
 .containerOpen {
@@ -28,14 +54,6 @@
     padding: 10px;
 }
 
-.buttonMode{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    cursor: pointer;
-}
 
 .icon {
     font-size: 30px;
@@ -51,3 +69,4 @@
         transform: rotate(360deg);
     }
 }
+

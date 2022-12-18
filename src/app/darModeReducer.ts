@@ -5,14 +5,14 @@ interface DarkModeState {
 }
 
 const initialState: DarkModeState = {
-  darkMode: false,
+  darkMode: localStorage.getItem("darkMode") === "true" ? true : false,
 };
 
 export const toggleDarkMode = createAction("darkMode/toggle");
 
 export const darkModeReducer = createReducer(initialState, (builder) => {
   builder.addCase(toggleDarkMode, (state) => {
-    state.darkMode = !state.darkMode;
+    state.darkMode = localStorage.getItem("darkMode") === "true" ? false : true;
     localStorage.setItem("darkMode", state.darkMode.toString());
   });
 });
