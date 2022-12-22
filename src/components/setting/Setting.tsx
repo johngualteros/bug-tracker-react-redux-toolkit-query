@@ -1,11 +1,13 @@
-import style from "./Setting.module.css";
-import { FiSettings as SettingsIcon } from "react-icons/fi";
-import { BsMoon as MoonIcon, BsSun as SunIcon } from "react-icons/bs";
-
 import { useState, useEffect } from "react";
 
 import { store } from "../../app/store";
-import { log } from "console";
+
+import style from "./Setting.module.css";
+
+import { FiSettings as SettingsIcon } from "react-icons/fi";
+import { BsMoon as MoonIcon, BsSun as SunIcon } from "react-icons/bs";
+
+
 
 interface isOpenSettingsState {
   isOpenState: boolean;
@@ -21,20 +23,25 @@ const Setting = () => {
   const toggleMode = (mode: boolean) => {
     store.dispatch({ type: "darkMode/toggle", payload: mode });
     setIsOpenSettings({ isOpenState: false });
-    
-    console.log('state in redux store' + store.getState().darkMode.darkMode);
+
+    document.body.classList.toggle("dark", mode);
+
     getDarkModeInLocalStorage();
   }
 
-  /*useEffect(() => {
-    const storeDarkMode = store.getState().darkMode;
-    setDarkMode(storeDarkMode.darkMode);
-    console.log(darkMode);
-  }, [darkMode]);*/
+  useEffect(() => {
+    getDarkModeInLocalStorage();
+  }, []);
 
   const getDarkModeInLocalStorage = () => {
-    setDarkMode(localStorage.getItem("darkMode") === "true" ? true : false);
-    console.log(darkMode);
+    // eslint-disable-next-line eqeqeq
+    setDarkMode(localStorage.getItem("darkMode") == "true" ? true : false);
+
+    if (localStorage.getItem("darkMode") == "true") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
   }
 
   if (isOpenSettings.isOpenState === false) {
@@ -43,7 +50,7 @@ const Setting = () => {
         className={ darkMode? style.containerDark :style.container}
         onClick={() => setIsOpenSettings({ isOpenState: true })}
       >
-        <SettingsIcon className={style.icon} />
+        <SettingsIcon className={style.icon} color={darkMode ? 'white' : 'black'}/>
       </div>
     );
   }
@@ -56,10 +63,10 @@ const Setting = () => {
         <h5>Select the theme</h5>
         <div className={style.buttons}>
           <button onClick={() => toggleMode(true)} className={ darkMode ? style.buttonModeDark : style.buttonMode}>
-            <MoonIcon />
+            <MoonIcon fill={darkMode ? 'white' : 'black'}/>
           </button>
           <button onClick={() => toggleMode(false)} className={ darkMode ? style.buttonModeDark : style.buttonMode}>
-            <SunIcon />
+            <SunIcon fill={darkMode ? 'white' : 'black'}/>
           </button>
         </div>
       </div>
