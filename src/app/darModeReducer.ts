@@ -12,7 +12,8 @@ const initialState: DarkModeState = {
 export const toggleDarkMode = createAction("darkMode/toggle");
 
 export const darkModeReducer = createReducer(initialState, (builder) => {
-  builder.addCase(toggleDarkMode, (state, action) => {
+  builder
+  .addCase(toggleDarkMode, (state, action) => {
     if (action.payload !== undefined) {
       state.darkMode = action.payload;
     }
