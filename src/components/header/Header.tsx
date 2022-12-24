@@ -1,10 +1,14 @@
+import { useState, useEffect } from "react";
+
 import style from "./Header.module.css";
+
 import { RxHamburgerMenu as HamburguerIcon } from "react-icons/rx";
 import { IoClose as CloseIcon } from "react-icons/io5";
-import { useState } from "react";
+import { store } from "../../app/store";
 
 const Header = () => {
-	const [iconMenu, setIconMenu] = useState(false);
+	const [iconMenu, setIconMenu] = useState(false); 
+  	const [darkMode, setDarkMode] = useState<any>(false);
 
 	const handleMenu = () => {
 		const menu = document.getElementById("menu") as HTMLElement;
@@ -18,8 +22,21 @@ const Header = () => {
 		}
 	};
 
+	useEffect(() => {
+		setDarkMode(localStorage.getItem("darkMode") == "true");
+		subscribeDarkMode();
+	}, [])
+
+	const subscribeDarkMode = () => {
+		store.subscribe(() => {
+			setDarkMode(store.getState().darkMode.darkMode);
+		});
+	}
+
+	
+
 	return (
-		<header className={style.header}>
+		<header className={darkMode ? style.headerDark : style.header}>
 			<div className={style.logo}>Jbugs</div>
 
 			<div className={style.links}>

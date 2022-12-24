@@ -26,14 +26,14 @@ const Setting = () => {
 
     document.body.classList.toggle("dark", mode);
 
-    getDarkModeInLocalStorage();
+    getDarkModeInLocalStorageAndAddBodyClass();
   }
 
   useEffect(() => {
-    getDarkModeInLocalStorage();
+    getDarkModeInLocalStorageAndAddBodyClass();
   }, []);
 
-  const getDarkModeInLocalStorage = () => {
+  const getDarkModeInLocalStorageAndAddBodyClass = () => {
     // eslint-disable-next-line eqeqeq
     setDarkMode(localStorage.getItem("darkMode") == "true" ? true : false);
 
