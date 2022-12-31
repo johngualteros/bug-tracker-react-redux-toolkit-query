@@ -23,13 +23,13 @@
     width: 70%;
     height: 70%;
 }
-h1{
+.formContainer h1{
     font-size: 2rem;
     font-weight: 900;
     color: #8fd3f4;
 }
 
-p{
+.formContainer p{
     font-size: 1.2rem;
     font-weight: 400;
     color: #e0c3fc;
