@@ -1,11 +1,13 @@
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 import Auth from '../components/auth/Auth'
 
 const Login = () => {
   return (
     <Auth>
       <h1>Login</h1>
-      <p>Doesn't have an account yet? <a href="/">signup</a>.</p>
+      <p>Doesn't have an account yet? <Link to="/register">signup</Link>.</p>
 
       <form>
         <div>

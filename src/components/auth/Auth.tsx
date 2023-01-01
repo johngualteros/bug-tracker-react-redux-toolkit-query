@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast';
 
 import style from './Auth.module.css'
 
@@ -11,6 +12,10 @@ interface ChildrenProps {
 const Auth : React.FC<ChildrenProps> = ({ children }) => {
   return (
     <div className={style.container}>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
         <div className={style.formContainer}>
           <div className={style.form}>
             {children}
