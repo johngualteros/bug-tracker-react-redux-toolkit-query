@@ -1,5 +1,5 @@
 import { errorMonitor } from "events";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate  } from "react-router-dom";
 import Auth from "../components/auth/Auth";
@@ -16,6 +16,8 @@ const Register = () => {
   });
 
   const [errors, setErrors] = useState<string[]>([]);
+
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
 
   const redirect = useNavigate();
 
@@ -34,6 +36,8 @@ const Register = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
+
+    validateInputs(e.target.name, e.target.value);
   }
 
   const validateInputs = (name: string, value: string) => {
@@ -41,7 +45,9 @@ const Register = () => {
       const email = value;
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
       if (!emailRegex.test(email)) {
-        setErrors([...errors, "Email is not valid"]);
+        if (!errors.includes("Email is not valid")){
+          setErrors([...errors, "Email is not valid"]);
+        }
       } else {
         setErrors(errors.filter((error) => error !== "Email is not valid"));
       }
@@ -51,7 +57,9 @@ const Register = () => {
       const password = value;
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
       if (!passwordRegex.test(password)) {
-        setErrors([...errors, "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter and one number"]);
+        if (!errors.includes("Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter and one number")){
+          setErrors([...errors, "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter and one number"]);
+        }
       } else {
         setErrors(errors.filter((error) => error !== "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter and one number"));
       }
@@ -61,7 +69,9 @@ const Register = () => {
       const name = value;
       const nameRegex = /^[a-zA-Z]+$/;
       if (!nameRegex.test(name)) {
-        setErrors([...errors, "Name must be only letters"]);
+        if(!errors.includes("Name must be only letters")){
+          setErrors([...errors, "Name must be only letters"]);
+        }
       } else {
         setErrors(errors.filter((error) => error !== "Name must be only letters"));
       }
@@ -71,26 +81,32 @@ const Register = () => {
       const lastname = value;
       const lastnameRegex = /^[a-zA-Z]+$/;
       if (!lastnameRegex.test(lastname)) {
-        setErrors([...errors, "Lastname must be only letters"]);
+        if(!errors.includes("Lastname must be only letters")){
+          setErrors([...errors, "Lastname must be only letters"]);
+        }
       }
       else {
         setErrors(errors.filter((error) => error !== "Lastname must be only letters"));
       }
     }
+
+    if (user.name === "" || user.lastname === "" || user.email === "" || user.password === "") {
+      setDisabledButton(true);
+    }else{
+      setDisabledButton(false);
+    }
   }
 
   const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-
-    validateInputs(e.target.name, e.target.value);
-
-    if (errors.length === 0) {
-      //await notify();
-      //redirect("/login");
-    }
-
-    return;
+    await notify();
+    redirect("/login");
   };
+
+  useEffect(() => {
+    setDisabledButton(true);
+  }, []);
+
   return (
     <Auth>
       <h1>Register</h1>
@@ -159,7 +175,7 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit" disabled={errors.length >= 1}>Register Me</button>
+        <button type="submit" disabled={errors.length >= 1 || disabledButton}>Register Me</button>
       </form>
     </Auth>
   );
