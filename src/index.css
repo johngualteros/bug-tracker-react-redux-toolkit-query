@@ -41,6 +41,21 @@ body input {
     color: #e0c3fc;
 }
 
+.dark .containerContentDashboard, body .containerContentDashboard{
+    width: calc(100% - 80px);
+    height: calc(100vh - 80px);
+    background-color: rgb(23, 23, 23);
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 80px;
+    left: 80px;
+}
+
+body .containerContentDashboard {
+    background-color: rgb(235, 235, 235);
+}
 .checbox{
   display: flex;
   align-items: center;

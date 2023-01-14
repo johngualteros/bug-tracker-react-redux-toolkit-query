@@ -5,7 +5,7 @@ import style from './Auth.module.css'
 
 import imageAuth from "./auth.svg"
 
-interface ChildrenProps {
+export interface ChildrenProps {
   children?: ReactNode;
 }
 
